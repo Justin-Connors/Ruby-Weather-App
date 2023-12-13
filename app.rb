@@ -5,9 +5,6 @@ require 'dotenv/load'
 require 'json'
 require 'erb'
 
-set :environment, :production
-set :base_path, '/views'
-
 #add stylesheet
 get '/styles.css' do
     content_type 'text/css'
