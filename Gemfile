@@ -2,4 +2,9 @@
 
 source "https://rubygems.org"
 
+gem "sinatra"
+gem "sinatra-reloader", require: false
+gem "httparty"
+gem "dotenv"
+
 # gem "rails"
