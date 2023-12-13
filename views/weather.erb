@@ -3,17 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/styles.css">
   <title>Weather App</title>
 </head>
 <body>
-  <h1>Weather in <%= @weather_data[:name] %></h1>
-  
-  <p>Temperature: <%= @weather_data[:temperature] %>°C</p>
-  <p>Description: <%= @weather_data[:description] %></p>
-  <p>Feels Like: <%= @weather_data[:feels_like] %>°C</p>
-  <p>Humidity: <%= @weather_data[:humidity] %>%</p>
-  <p>Wind Speed: <%= @weather_data[:wind_speed] %> m/s</p>
-  
-  <a href="/">Back to Search</a>
+  <div class="container">
+    <h1 class="w_header">Weather in <%= @weather_data[:name] %></h1>
+    <div class="weather_data">
+      <p>Temperature: <%= @weather_data[:temperature] %>°C</p>
+      <p>Description: <%= @weather_data[:description] %></p>
+      <p>Feels Like: <%= @weather_data[:feels_like] %>°C</p>
+      <p>Humidity: <%= @weather_data[:humidity] %>%</p>
+      <p>Wind Speed: <%= @weather_data[:wind_speed] %> m/s</p>
+    </div>
+    <div class="back">
+      <button class="btn" type="submit"><a href="/">Back to Search</a></button>
+    </div>
+  </div>
 </body>
 </html>

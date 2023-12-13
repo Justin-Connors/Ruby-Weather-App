@@ -3,8 +3,13 @@ require 'sinatra/reloader' if development?
 require 'httparty'
 require 'dotenv/load'
 require 'json'
+require 'erb'
 
-
+#add stylesheet
+get '/styles.css' do
+    content_type 'text/css'
+    File.read('./views/styles.css')
+end
 
 API_KEY = ENV['API_KEY']
 
