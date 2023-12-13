@@ -27,6 +27,7 @@ end
 get '/weather/:city' do
     city = params[:city]
     @weather_data = fetch_weather(city)
+    @forecast_data = fetch_weekly_forecast(city)
     erb :weather
 end
 
@@ -45,5 +46,27 @@ def fetch_weather(city)
         humidity: weather_data['main']['humidity'],
         visibility: weather_data['visibility'],
         wind_speed: weather_data['wind']['speed'],
+        icon: weather_data['weather'][0]['icon'],
+        forecast: fetch_weekly_forecast(city)
     }
 end
+
+def fetch_weekly_forecast(city)
+    response = HTTParty.get("http://api.openweathermap.org/data/2.5/forecast?q=#{city}&appid=#{API_KEY}&units=metric")
+    return [] unless response.success?
+
+    forecast_data = JSON.parse(response.body)
+    forecast_data['list'].map do |forecast|
+        {
+            date: Time.at(forecast['dt']).to_date,
+            temperature: forecast['main']['temp'],
+            description: forecast['weather'][0]['description'],
+            feels_like: forecast['main']['feels_like'],
+            humidity: forecast['main']['humidity'],
+            visibility: forecast['visibility'],
+            wind_speed: forecast['wind']['speed'],
+            icon: forecast['weather'][0]['icon']
+        }
+    end
+end
+

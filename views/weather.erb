@@ -6,15 +6,42 @@
   <link rel="stylesheet" href="/styles.css">
   <title>Weather App</title>
 </head>
-<body>
+<body class="mobile_p2">
   <div class="container">
     <h1 class="w_header">Weather in <%= @weather_data[:name] %></h1>
+    <h2>Today</h2>
     <div class="weather_data">
-      <p>Temperature: <%= @weather_data[:temperature] %>°C</p>
-      <p>Description: <%= @weather_data[:description] %></p>
-      <p>Feels Like: <%= @weather_data[:feels_like] %>°C</p>
-      <p>Humidity: <%= @weather_data[:humidity] %>%</p>
-      <p>Wind Speed: <%= @weather_data[:wind_speed] %> m/s</p>
+      <img src="https://openweathermap.org/img/wn/<%= @weather_data[:icon]%>.png">
+      <p>
+        Temperature: <%= @weather_data[:temperature] %>°C<br>
+        Description: <%= @weather_data[:description] %><br>
+        Feels Like: <%= @weather_data[:feels_like] %>°C<br>
+        Humidity: <%= @weather_data[:humidity] %>%<br>
+        Wind Speed: <%= @weather_data[:wind_speed] %> m/s<br>
+      </p>
+    </div>
+    <div class="weekly_forecast">
+      <h2>Next 5 days</h2>
+      <div class="forecast">
+        <% previous_day = nil %>
+        <% @forecast_data.each do |day| %>
+          <% if previous_day.nil? || previous_day[:date] != day[:date] %>
+            <% if previous_day.nil? %>
+              <% previous_day = day %>
+              <% next %>
+            <% end %>
+            <div class="day">
+              <img src="https://openweathermap.org/img/wn/<%= day[:icon]%>.png">
+              <p>
+              Date: <%= day[:date] %><br>
+              Desc: <%= day[:description] %><br>
+              Temp: <%= day[:temperature] %>°C<br>
+              </p>
+            </div>
+          <% end %>
+          <% previous_day = day %>
+        <% end %>
+      </div>
     </div>
     <div class="back">
       <button class="btn" type="submit"><a href="/">Back to Search</a></button>
