@@ -7,4 +7,6 @@ gem "sinatra-reloader", require: false
 gem "httparty"
 gem "dotenv"
 
+ruby "3.2.2"
+
 # gem "rails"
