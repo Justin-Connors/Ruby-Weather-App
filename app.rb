@@ -5,6 +5,9 @@ require 'dotenv/load'
 require 'json'
 require 'erb'
 
+set :environment, :production
+set :base_path, '/views'
+
 #add stylesheet
 get '/styles.css' do
     content_type 'text/css'
@@ -33,6 +36,8 @@ end
 def fetch_weather(city)
     response = HTTParty.get("#{BASE_URL}?q=#{city}&appid=#{API_KEY}&units=metric")
     return {} unless response.success?
+
+    puts response.body
 
     weather_data = JSON.parse(response.body) 
     {
