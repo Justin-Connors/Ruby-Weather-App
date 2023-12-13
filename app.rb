@@ -2,6 +2,9 @@ require 'sinatra'
 require 'sinatra/reloader' if development?
 require 'httparty'
 require 'dotenv/load'
+require 'json'
+
+
 
 API_KEY = ENV['API_KEY']
 
@@ -31,6 +34,9 @@ def fetch_weather(city)
         name: weather_data['name'],
         temperature: weather_data['main']['temp'],
         description: weather_data['weather'][0]['description'],
+        feels_like: weather_data['main']['feels_like'],
+        humidity: weather_data['main']['humidity'],
+        visibility: weather_data['visibility'],
+        wind_speed: weather_data['wind']['speed'],
     }
-
 end
